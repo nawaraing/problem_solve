@@ -1,4 +1,5 @@
 #include <list>
+#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -28,28 +29,28 @@ void	ft_Backspace(list<char>::iterator cs_iter, list<char> *l)
 int	main(void)
 {
 	list<char>		l;
-	char			*str;
-	char			*cmd;
+	string			str;
+	char			cmd;
 	int			M;
 	size_t			len;
 
-	scanf("%s", str);
-	for (len = strlen(str); len > 0; len--)
-		l.push_front(str[len - 1]);
-	free(str);
+	cin >> str;
+	for(int i = 0; i < str.size(); i++) {
+		l.push_back(str[i]);
+	}
 	list<char>::iterator	cs_iter = l.end();
-	scanf("%d", &M);
+	cin >> M;
 	while (M--)
 	{
-		scanf("%s", &cmd);
-		if (cmd[0] == 'L') ft_Left(&cs_iter, l.begin());
-		else if (cmd[0] == 'D') ft_D(&cs_iter, l.end());
-		else if (cmd[0] == 'B') ft_Backspace(cs_iter, &l);
-		else if (cmd[0] == 'P') l.insert(cs_iter, cmd[2]);
-		free(cmd);
+		cin >> cmd;
+		if (cmd == 'L') ft_Left(&cs_iter, l.begin());
+		else if (cmd == 'D') ft_D(&cs_iter, l.end());
+		else if (cmd == 'B') ft_Backspace(cs_iter, &l);
+		else if (cmd == 'P') {
+			cin >> cmd;
+			l.insert(cs_iter, cmd);
+		}
 	}
-	free(tmp);
-	for (itor = i.begin(); itor < i.end(); itor++)
-		cout << *itor;
+	for (cs_iter = l.begin(); cs_iter != l.end(); cs_iter++) cout << *cs_iter;
 	return (0);
 }
