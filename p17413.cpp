@@ -12,7 +12,7 @@ int		main(void)
 		if (str[i] == '<') {
 			if (i != 0) {
 				int	j = i - 1;
-				while (str[j] != ' ' && str[j] != '>') cout << str[j--];
+				while (str[j] != ' ' && str[j] != '>' && j >= 0) cout << str[j--];
 			}
 			while (str[i] != '>') cout << str[i++];
 			cout << str[i];
