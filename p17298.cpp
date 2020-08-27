@@ -5,9 +5,10 @@ using namespace std;
 
 void			ft_recur(stack<int> st, stack<int> printable)
 {
+	if (st.size() == 0) return ;
+
 	int		print_num;
 
-	if (st.size() == 0) return ;
 	while (printable.size() && st.top() >= printable.top()) {
 //		cout << "printable.size : " << printable.size() << "\n";
 		printable.pop();
