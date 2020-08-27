@@ -3,22 +3,19 @@
 
 using namespace std;
 
-void			ft_recur(stack<int> st, stack<int> printable)
-{
-	if (st.size() == 0) return ;
+stack<int>	st, printable;
 
+void			ft_recur()
+{
 	int		print_num;
 
-	while (printable.size() && st.top() >= printable.top()) {
-//		cout << "printable.size : " << printable.size() << "\n";
-		printable.pop();
-	}
-//	cout << "1\n";
+	if (st.size() == 0) return ;
+	while (printable.size() && st.top() >= printable.top()) printable.pop();
 	if (printable.size() == 0) print_num = -1;
 	else print_num = printable.top();
 	printable.push(st.top());
 	st.pop();
-	ft_recur(st, printable);
+	ft_recur();
 	cout << print_num << " ";
 	return ;
 }
@@ -26,7 +23,6 @@ void			ft_recur(stack<int> st, stack<int> printable)
 int			main(void)
 {
 	int		N, A;
-	stack<int>	st, printable;
 
 	cin >> N;
 	while (N--) {
@@ -35,7 +31,7 @@ int			main(void)
 	}
 	printable.push(st.top());
 	st.pop();
-	ft_recur(st, printable);
+	ft_recur();
 	cout << "-1";
 	return (0);
 }
