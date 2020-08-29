@@ -46,8 +46,8 @@ int		main(void)
 			if (str[j] == '*') v.push_back(make_pair(i, j));
 		}
 	}
-	for (int i = 0; i <= R - K + 1; i++) {
-		for (int j = 0; j <= S - K + 1; j++) {
+	for (int i = 1; i <= R - K + 1; i++) {
+		for (int j = 1; j <= S - K + 1; j++) {
 			nums = 0;
 			for (unsigned long l = 0; l < v.size(); l++) {
 				if ((v[l]).first < i) continue ;
