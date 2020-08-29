@@ -37,7 +37,7 @@ int		main(void)
 	int				R, S, K, nums, max = 0;
 	string				str;
 	vector<pair<int, int> >		v;
-	pair<int, int>			fly, racket;
+	pair<int, int>			racket;
 
 	cin >> R; cin >> S; cin >> K;
 	for (int i = 0; i < R; i++) {
