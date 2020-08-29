@@ -7,7 +7,7 @@ using namespace std;
 
 int		ft_isfly(vector<pair<int, int> > v, int i, int j)
 {
-	for (int k = 0; k < v.size(); k++)
+	for (unsigned long k = 0; k < v.size(); k++)
 		if ((v[k]).first == i && (v[k]).second == j) return 1;
 	return 0;
 }
@@ -42,14 +42,14 @@ int		main(void)
 	cin >> R; cin >> S; cin >> K;
 	for (int i = 0; i < R; i++) {
 		cin >> str;
-		for (int j = 0; j < str.length(); j++) {
+		for (unsigned long j = 0; j < str.length(); j++) {
 			if (str[j] == '*') v.push_back(make_pair(i, j));
 		}
 	}
 	for (int i = 0; i <= R - K + 1; i++) {
 		for (int j = 0; j <= S - K + 1; j++) {
 			nums = 0;
-			for (int l = 0; l < v.size(); l++) {
+			for (unsigned long l = 0; l < v.size(); l++) {
 				if ((v[l]).first < i) continue ;
 				else if ((v[l]).first >= (i + K - 2)) break ;
 				if ((v[l]).second >= j && (v[l]).second < (j + K - 2))
