@@ -5,23 +5,24 @@ using namespace std;
 
 int			main(void)
 {
-	int		p1, p2, n, a, max = 0;
-	vector<int>	vctr;
+	ios::sync_with_stdio(false);
+	cin.tie(0);
 
+	int		n, a = 0, ans = 0;
+	vector<int>	left, right;
+
+	left.push_back(a);
+	right.push_back(a);
 	cin >> n;
-	while (n--) {
+	for (int i = 0; i < n; i++) {
 		cin >> a;
-		vctr.push_back(a);
+		left.push_back(left.back() + (a * a));
+		right.push_back(right.back() + a);
 	}
-	for (int i = 0; i <= vctr.size(); i++) {
-		p1 = 0;
-		p2 = 0;
-		for (int j = 0; j < vctr.size(); j++) {
-			if (j < i)  p1 += vctr[j] * vctr[j];
-			else p2 += vctr[j];
-		}
-		if (max < p1 * p2) max = p1 * p2;
+	for (int i = 0; i <= n; i++) {
+		if (ans < (left[i] * (right[n] - right[i])))
+			ans = left[i] * (right[n] - right[i]);
 	}
-	cout << max;
+	cout << ans;
 	return (0);
 }
