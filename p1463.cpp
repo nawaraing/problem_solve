@@ -6,6 +6,7 @@ int		ans = 2147483647;
 
 void			ft_recur(int N, int cnt)
 {
+	if (cnt > ans) return ;
 	if (N == 1) {
 		if (ans > cnt) ans = cnt;
 		return ;
