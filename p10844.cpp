@@ -4,14 +4,14 @@ using namespace std;
 
 int		ans = 0;
 
-void				ft_recur(int i, int digit, int N)
+void				ft_recur(int i, int N)
 {
 	if (N == 1) {
 		ans++;
 		return ;
 	}
-	if (i != 0) ft_recur(i - 1, digit + 1, N - 1);
-	if (i != 9) ft_recur(i + 1, digit + 1, N - 1);
+	if (i != 0) ft_recur(i - 1, N - 1);
+	if (i != 9) ft_recur(i + 1, N - 1);
 	return ;
 }
 
@@ -24,7 +24,7 @@ int				main(void)
 
 	cin >> N;
 	for (int i = 1; i < 10; i++)
-		ft_recur(i, 1, N);
+		ft_recur(i, N);
 	cout << ans;
 	return (0);
 }
