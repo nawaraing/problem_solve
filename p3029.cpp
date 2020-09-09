@@ -21,8 +21,9 @@ int		main(void)
 	m2 = (str2[3] - '0') * 10 + (str2[4] - '0');
 	s2 = (str2[6] - '0') * 10 + (str2[7] - '0');
 	total2 = h2 * 3600 + m2 * 60 + s2;
-	total -= total2;
-	total = 86400 - total;
+	total = total2 - total;
+	if (total < 0)
+		total = 86400 + total;
 	h = total / 3600;
 	total %= 3600;
 	m = total / 60;
@@ -30,7 +31,7 @@ int		main(void)
 	s = total;
 	if (h < 10) cout << 0;
 	cout << h << ":";
-	if ( m < 10) cout <<0;
+	if (m < 10) cout <<0;
 	cout << m <<":";
 	if (s < 10) cout << 0;
 	cout << s;
