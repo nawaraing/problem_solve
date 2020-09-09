@@ -22,8 +22,7 @@ int		main(void)
 	s2 = (str2[6] - '0') * 10 + (str2[7] - '0');
 	total2 = h2 * 3600 + m2 * 60 + s2;
 	total -= total2;
-	if (total > 0)
-		total = 86400 - total;
+	total = 86400 - total;
 	h = total / 3600;
 	total %= 3600;
 	m = total / 60;
