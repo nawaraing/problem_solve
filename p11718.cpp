@@ -1,16 +1,17 @@
 #include <iostream>
+#include <istream>
 #include <string>
 
 using namespace std;
 
 int		main(void)
 {
-	ios::sync_with_stdio(false);
-	cin.tie(0);
-
 	string		s;
 
-	while (cin >> s)
+	while (1) {
+		getline(cin, s);
+		if (s == "") break ;
 		cout << s << "\n";
+	}
 	return (0);
 }
