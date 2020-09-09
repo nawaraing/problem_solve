@@ -10,10 +10,10 @@ int		main(void)
 	int		r, c, n;
 
 	cin >> r; cin >> c; cin >> n;
-	r /= n;
-	if (r % n) r++;
-	c /= n;
-	if (c % n) c++;
+	if (r % n) r = r / n + 1;
+	else r /= n;
+	if (c % n) c = c / n + 1;
+	else c /= n;
 	cout << r * c;
 	return (0);
 }
