@@ -23,7 +23,7 @@ int		main(void)
 	}
 	for (int i = 0; i < (int)(v[0].length()); i++) {
 		c = v[0][i];
-		for (int j = 0; j < (int)(v.size()); j++) {
+		for (int j = 1; j < (int)(v.size()); j++) {
 			if (v[j][i] != c) break ;
 			if (j == (int)(v.size()) - 1) l.push_back(i);
 		}
@@ -32,6 +32,7 @@ int		main(void)
 	n = -1;
 	while (l.size()) {
 		for (int i = 1; i < l.front() - n; i++) cout << "?";
+		if (l.size() == 1) break ;
 		n = l.front();
 		cout << v[0][l.front()];
 		l.pop_front();
