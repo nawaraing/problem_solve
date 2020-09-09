@@ -31,7 +31,7 @@ int		main(void)
 	s = total;
 	if (h < 10) cout << 0;
 	cout << h << ":";
-	if (m < 10) cout <<0;
+	if (m < 10) cout << 0;
 	cout << m <<":";
 	if (s < 10) cout << 0;
 	cout << s;
