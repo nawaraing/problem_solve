@@ -30,33 +30,33 @@ int			main(void)
 		cnt++;
 		tmp = pi;
 	}
-	for (int i = tmp; i < 360000; i++)
+	for (int i = tmp; i < 3600000; i++)
 		dot_sum[i] = cnt;
 	
 	// ans = tiangle - jik-gak - doon-gak
 	tri = (long long)(n * (n - 1) * (n - 2) / 6);
 
-	for (int i = 0; i < 180000; i++) {
-		if ((!i && dot_sum[i] == 1 && dot_sum[i + 180000] == dot_sum[i + 180000 - 1] + 1) || 
-				(i && dot_sum[i] == dot_sum[i - 1] + 1 && dot_sum[i + 180000] == dot_sum[i + 180000 - 1] + 1)) { // jik-gak triagle && doon-gak
+	for (int i = 0; i < 1800000; i++) {
+		if ((!i && dot_sum[i] == 1 && dot_sum[i + 1800000] == dot_sum[i + 1800000 - 1] + 1) || 
+				(i && dot_sum[i] == dot_sum[i - 1] + 1 && dot_sum[i + 1800000] == dot_sum[i + 1800000 - 1] + 1)) { // jik-gak triagle && doon-gak
 			except += (n - 2); // jik-gak
 			if (i)
-				cnt = n - dot_sum[i + 180000] + dot_sum[i - 1];
-			else 
-				cnt = n - dot_sum[i + 180000];
+				cnt = n - dot_sum[i + 1800000] + dot_sum[i - 1];
+			else
+				cnt = n - dot_sum[i + 1800000];
 			except += ft_nC2(cnt);
-			cnt = dot_sum[i + 180000] - dot_sum[i] - 1;
+			cnt = dot_sum[i + 1800000] - dot_sum[i] - 1;
 			except += ft_nC2(cnt);
 		}
 		else if ((!i && dot_sum[i] == 1) || dot_sum[i] == dot_sum[i - 1] + 1) { // behind line doon-gak triangle
 			if (i)
-				cnt = n - dot_sum[i + 180000] + dot_sum[i - 1];
+				cnt = n - dot_sum[i + 1800000] + dot_sum[i - 1];
 			else 
-				cnt = n - dot_sum[i + 180000];
+				cnt = n - dot_sum[i + 1800000];
 			except += ft_nC2(cnt);
 		}
-		else if (dot_sum[i + 180000] == dot_sum[i + 180000 - 1] + 1) { // forward line doon-gak triangle
-			cnt = dot_sum[i + 180000] - dot_sum[i] - 1;
+		else if (dot_sum[i + 1800000] == dot_sum[i + 1800000 - 1] + 1) { // forward line doon-gak triangle
+			cnt = dot_sum[i + 1800000] - dot_sum[i] - 1;
 			except += ft_nC2(cnt);
 		}
 	}
