@@ -18,8 +18,8 @@ int		main(void)
 	ios::sync_with_stdio(false);
 	cin.tie(0);
 
-	int			n, r, pi, cnt, tmp, dot_sum[360000], except = 0, tri;
-	
+	int			n, r, pi, cnt, tmp, dot_sum[360000];
+	long long		except = 0, tri;
 	//  setting dot_sum
 	cin >> n; cin >> r;
 	cnt = 0; tmp = 0;
