@@ -8,12 +8,12 @@
 using namespace std;
 
 
-int		ft_nC2(int n)
+long long		ft_nC2(int n)
 {
 	return (n * (n - 1) / 2);
 }
 
-int		main(void)
+int			main(void)
 {
 	ios::sync_with_stdio(false);
 	cin.tie(0);
@@ -34,15 +34,25 @@ int		main(void)
 		dot_sum[i] = cnt;
 	
 	// ans = tiangle - jik-gak - doon-gak
-	tri = n * (n - 1) * (n - 2) / 6;
+	tri = (long long)(n * (n - 1) * (n - 2) / 6);
 
 	for (int i = 0; i < 180000; i++) {
 		if ((!i && dot_sum[i] == 1 && dot_sum[i + 180000] == dot_sum[i + 180000 - 1] + 1) || 
-				(i && dot_sum[i] == dot_sum[i - 1] + 1 && dot_sum[i + 180000] == dot_sum[i + 180000 - 1] + 1)) { // jik-gak triagle
-			except += (n - 2);
+				(i && dot_sum[i] == dot_sum[i - 1] + 1 && dot_sum[i + 180000] == dot_sum[i + 180000 - 1] + 1)) { // jik-gak triagle && doon-gak
+			except += (n - 2); // jik-gak
+			if (i)
+				cnt = n - dot_sum[i + 180000] + dot_sum[i - 1];
+			else 
+				cnt = n - dot_sum[i + 180000];
+			except += ft_nC2(cnt);
+			cnt = dot_sum[i + 180000] - dot_sum[i] - 1;
+			except += ft_nC2(cnt);
 		}
 		else if ((!i && dot_sum[i] == 1) || dot_sum[i] == dot_sum[i - 1] + 1) { // behind line doon-gak triangle
-			cnt = dot_sum[360000 - 1] - dot_sum[i + 180000] + dot_sum[i - 1];
+			if (i)
+				cnt = n - dot_sum[i + 180000] + dot_sum[i - 1];
+			else 
+				cnt = n - dot_sum[i + 180000];
 			except += ft_nC2(cnt);
 		}
 		else if (dot_sum[i + 180000] == dot_sum[i + 180000 - 1] + 1) { // forward line doon-gak triangle
