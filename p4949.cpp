@@ -12,8 +12,12 @@ int		main(void)
 {
 	string		s;
 	stack<char>	sta;
+	bool		flag;
+
 	getline(cin, s);
 	while (s != ".") {
+		flag = 0;
+		while (sta.size()) sta.pop();
 		for (unsigned long i = 0; i < s.length(); i++) {
 			if (s[i] == '(' || s[i] == '[') sta.push(s[i]);
 			else if (s[i] == ')') {
@@ -24,18 +28,20 @@ int		main(void)
 				else sta.pop();
 			}
 			else if (s[i] == ']') {
-				if (!sta.size() || sta.top() != '(') {
+				if (!sta.size() || sta.top() != '[') {
 					cout << "no\n";
 					break ;
 				}
 				else sta.pop();
 			}
+			if (i == s.length() - 1)
+				flag = 1;
 		}
-		if (!sta.size()) {
-			cout << "no\n";
-			continue ;
+		if (flag == 1) {
+			if (!sta.size())
+				cout << "yes\n";
+			else cout << "no\n";
 		}
-		cout << "yes\n";
 		getline(cin, s);
 	}
 	return (0);
