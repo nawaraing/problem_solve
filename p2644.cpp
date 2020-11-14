@@ -11,7 +11,7 @@ int		main(void)
 	ios::sync_with_stdio(false);
 	cin.tie(0);
 
-	int				n, a, b, begin, end, m, cnt = 0;
+	int				n, a, b, begin, end, m;
 	vector<int>					v[101];
 	queue<pair<int, int> >		q;
 	pair<int, int>				pr;
@@ -29,13 +29,14 @@ int		main(void)
 		pr = q.front();
 		q.pop();
 		if (pr.first == end) break ;
-		for (int i = 0; i < v[pr.first].size(); i++) {
+		for (int i = 0; i < (int)v[pr.first].size(); i++) {
 			if (!visit[v[pr.first][i]]) {
 				visit[v[pr.first][i]] = 1;
-				q.push(make_pair(v[pr.first][i], pr.second));
+				q.push(make_pair(v[pr.first][i], pr.second + 1));
 			}
 		}
 	}
-	cout << pr.second;
+	if (pr.first == end) cout << pr.second;
+	else cout << -1;
 	return (0);
 }
