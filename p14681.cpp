@@ -10,8 +10,13 @@ int		main(void)
 	int		a, b;
 
 	cin >> a >> b;
-	if (a - b > 0) cout << ">";
-	else if (a - b < 0) cout << "<";
-	else cout << "==";
+	if (a > 0) {
+		if (b > 0) cout << 1;
+		else cout << 4;
+	}
+	else {
+		if (b > 0) cout << 2;
+		else cout << 3;
+	}
 	return (0);
 }
