@@ -1,82 +1,89 @@
 #include <iostream>
+#include <set>
 
 using namespace std;
 
-#define FULL 1048575
+#define MAXI ((1<<20) - 1)
 
-int				train[100001];
-bool			flag;
+int		n, m, train[100001];
+int		a, b, c;
 
-class	seat {
+class cmd
+{
 	public:
-
-	int		ft_seat(int x) {
-		int		ret = 1;
-
-		return (ret << (x - 1));
+	int		seat(int num)
+	{
+		return (1 << (num - 1));
 	}
 
-	void	ft_add(int i, int x) {
-		x = ft_seat(x);
-		train[i] |= x;
-		return ;
+	int		addiction(int train, int num)
+	{
+		return (train | seat(num));
 	}
 
-	void	ft_remove(int i, int x) {
-		x = ft_seat(x);
-		train[i] &= (FULL - x);
-		return ;
+	int		minus(int train, int num)
+	{
+		return (train & (MAXI - seat(num)));
 	}
 
-	void	ft_left(int i) {
-		train[i] <<= 1;
-		train[i] &= FULL;
-		return ;
+	int		front(int train)
+	{
+		return (MAXI & (train << 1));
 	}
 
-	void	ft_right(int i) {
-		train[i] >>= 1;
-		return ;
+	int		back(int train)
+	{
+		return (train >> 1);
 	}
 };
 
 int		main(void)
 {
-	ios::sync_with_stdio(false);
-	cin.tie(0);
-
-	int		n, m, command, i, x, cnt = 0;
-	seat	sseat;
+	class cmd		tmp;
 
 	cin >> n >> m;
-	while (m--) {
-		cin >> command >> i;
-		if (command == 1) {
-			cin >> x;
-			sseat.ft_add(i, x);
+	while (m--)
+	{
+		for (int i = 1; i <= n; i++)
+		 	cout << train[i] << " ";
+		cout << "\n";
+		cin >> a;
+		if (a == 1 || a == 2)
+		{
+			cin >> b >> c;
+			if (a == 1)
+				train[b] = tmp.addiction(train[b], c);
+			else train[b] = tmp.minus(train[b], c);
 		}
-		else if (command == 2) {
-			cin >> x;
-			sseat.ft_remove(i, x);
+		else
+		{
+			cin >> b;
+			if (a == 4)
+				train[b] = tmp.back(train[b]);
+			else train[b] = tmp.front(train[b]);
 		}
-		else if (command == 3) {
-			sseat.ft_left(i);
-		}
-		else if (command == 4) {
-			sseat.ft_right(i);
-		}
-		else cout << "wrong\n";
 	}
-	for (int i = 1; i <= n; i++) {
+/* 	set<int>		s;
+	for (int i =0; i < n;i++)
+	{
+		s.insert(train[i]);
+	}
+	cout << s.size();
+*/
+	int		ans = 0;
+	bool	flag = 0;
+	for (int i =1; i <= n;i++)
+	{
 		flag = 0;
-		for (int j = 1; j < i; j++) {
-			if (train[j] == train[i]) {
+		for (int j = 1; j < i; j++)
+		{
+			if (train[i] == train[j])
 				flag = 1;
-				break ;
-			}
+			if (flag)
+				break;
 		}
-		if (!flag) cnt++;
+		if (!flag)
+			ans++;
 	}
-	cout << cnt;
-	return (0);
+	cout << ans;
 }
