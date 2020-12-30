@@ -27,7 +27,6 @@ int		main(void)
 	{
 		ppr = pq.top();
 		pq.pop();
-		if ()
 	}
 	return (0);
 }
