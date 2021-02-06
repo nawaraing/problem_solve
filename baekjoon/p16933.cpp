@@ -3,25 +3,24 @@
 
 using namespace std;
 
-int			maps[1001][1001], visit[1001][1001][11], n, m, k, dx[5] = {0, 1, -1, 0, 0}, dy[5] = {0, 0, 0, 1, -1};
+int			maps[1001][1001], visit[1001][1001][11][2], n, m, k, dx[5] = {0, 1, -1, 0, 0}, dy[5] = {0, 0, 0, 1, -1};
 queue<pair<pair<int, int>, pair<int, int> > >		q;		// <<cnt, break>, <r, c>>
 
-int		is_valid(int r, int c, int cnt, int wall, int *ref, int i)
+int		is_valid(int r, int c, int wall, int *ref, int cnt, int dir)
 {
 	if (r < 1 || r > n) return (0);
 	if (c < 1 || c > m) return (0);
-	if (i == 0) return (1);
-	if (maps[r][c] == 1)
+	if (dir != 0 && maps[r][c] == 1)
 	{
-		if (cnt % 2 == 0) return (0);
 		if (wall + 1 > k) return (0);
-		if (visit[r][c][wall + 1] == 1) return (0);
-		visit[r][c][wall + 1] = 1;
+		if (cnt % 2 == 0) return (0);
+		if (visit[r][c][wall + 1][cnt % 2] == 1) return (0);
+		visit[r][c][wall + 1][cnt % 2] = 1;
 		*ref = 1;
 		return (1);
 	}
-	if (visit[r][c][wall] == 1) return (0);
-	visit[r][c][wall] = 1;
+	if (visit[r][c][wall][cnt % 2] == 1) return (0);
+	visit[r][c][wall][cnt % 2] = 1;
 	return (1);
 }
 
@@ -45,7 +44,7 @@ int		main(void)
 	{
 		cout << 1; return (0);
 	}
-	visit[1][1][0] = 1;
+	visit[1][1][0][0] = 1;
 	q.push(make_pair(make_pair(1, 0), make_pair(1, 1)));
 	while (!q.empty())
 	{
@@ -62,7 +61,7 @@ int		main(void)
 				cout << pp.first.first + 1;
 				return (0);
 			}
-			if (is_valid(nextr, nextc, pp.first.first, pp.first.second, &brks, i))
+			if (is_valid(nextr, nextc, pp.first.second, &brks, pp.first.first, i))
 			{
 				if (brks)
 					q.push(make_pair(make_pair(pp.first.first + 1, pp.first.second + 1), make_pair(nextr, nextc)));
