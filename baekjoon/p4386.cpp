@@ -1,61 +1,70 @@
-#include <iostream>
 #include <vector>
 #include <cmath>
 #include <stdio.h>
+#include <string.h>
+#include <queue>
 
 using namespace std;
 
-int			n, visit[101];
-double		x, y, dist[101][101];
-pair<double, double>		stars[101];
-vector<int>				v;
+int					n, cnt = 0;
+vector<int>			graph[101];
+float				x, y, ans = 0;
+pair<float, float>	stars[101];
+int					visit[101];
+priority_queue<pair<float, pair<int, int> > >	pq;	// < -dist sq, < x, y > >
 
-double	ft_dist_sqr(pair<double, double> a, pair<double, double> b)
+float	ft_dist(pair<float, float> a, pair<float, float> b)
 {
-	return ((a.first - b.first) * (a.first - b.first) + (a.second - b.second) * (a.second - b.second));
+	float	ff = abs(a.first - b.first);
+	float	ss = abs(a.second - b.second);
+	return (sqrt(ff * ff + ss * ss));
+}
+
+int		ft_dfs(int begin, int dest)
+{
+	visit[begin] = 1;
+	for (int i = 0; i < graph[begin].size(); i++)
+	{
+		if (visit[graph[begin][i]])
+			continue ;
+		if (graph[begin][i] == dest)
+			return (0);
+		if (0 == ft_dfs(graph[begin][i], dest))
+			return (0);
+	}
+	return (1);
 }
 
 int		main(void)
 {
-	ios::sync_with_stdio(false);
-	cin.tie(0);
-
-	double	ans = 0;
-	cin >> n;
-	for (int i = 0; i < n; i++)
+	scanf("%d", &n);
+	for (int i =0; i < n; i++)
 	{
-		cin >> x >> y;
+		scanf("%f %f\n", &x, &y);
 		stars[i] = make_pair(x, y);
 	}
-	if (n == 1) {
-		cout << 0; return 0;
-	}
-	v.push_back(0);
-	visit[0] = 1;
-	for (int cnt = 0; cnt < n - 1; cnt++)
+	for (int i = 0; i < n; i++)
 	{
-		double	minn = 2000;
-		int		idx = -1;
-		for (int i = 0; i < v.size(); i++)
+		for (int j = i + 1; j < n; j++)
 		{
-			pair<double, double>	conn = stars[v[i]];
-			for (int j = 0; j < n; j++)
-			{
-				if (visit[j]) continue ;
-				if (v[i] == j) continue ;
-				if (minn > ft_dist_sqr(conn, stars[j]))
-				{
-					minn = ft_dist_sqr(conn, stars[j]);
-					// cout << v[i] << " " << j << " " << minn << "\n";
-					idx = j;
-				}
-			}
+			pq.push(make_pair(-ft_dist(stars[i], stars[j]), make_pair(i, j)));
 		}
-		visit[idx] = 1;
-		v.push_back(idx);
-		// cout << minn << "\n";
-		ans += sqrt(minn);
 	}
-	printf("%.2lf", ans);
+	while (!pq.empty())
+	{
+		int		begin = pq.top().second.first;
+		int		dest = pq.top().second.second;
+		memset(visit, 0, sizeof(visit));
+		if (ft_dfs(begin, dest))
+		{
+			graph[begin].push_back(dest);
+			graph[dest].push_back(begin);
+			ans -= pq.top().first;
+			cnt++;
+		}
+		if (cnt == n - 1) break ;
+		pq.pop();
+	}
+	printf("%.2f", ans);
 	return (0);
 }
