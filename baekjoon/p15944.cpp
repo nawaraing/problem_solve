@@ -38,23 +38,24 @@ int		main(void)
 				printf("%d", cnt);
 				return (0);
 			}
-			if (visit[nextr][nextc]) continue ;
-			visit[nextr][nextc] = 1;
 			if (maps[nextr][nextc] == '.')
-				dq.push_front(make_pair(make_pair(nextr, nextc), cnt));
-			else if (maps[nextr][nextc] == '#')
 			{
-				for (int j = 0; j < d; j++)
+				if (visit[nextr][nextc]) continue ;
+				visit[nextr][nextc] = 1;
+				dq.push_front(make_pair(make_pair(nextr, nextc), cnt));
+			}
+		}
+		for (int j = -d; j <= d; j++)
+		{
+			for (int k = -d; k <= d; k++)
+			{
+				if (pos.first + j < 0 || pos.first + j >= n) continue ;
+				if (pos.second + k < 0 || pos.second + k >= m) continue ;
+				if (maps[pos.first + j][pos.second + k] == '#')
 				{
-					for (int k = 0; k < d; k++)
-					{
-						if (maps[nextr + j][nextc + k] == '#')
-						{
-							if (visit[nextr + j][nextc + k]) continue ;
-							visit[nextr + j][nextc + k] = 1;
-							dq.push_back(make_pair(make_pair(nextr + j, nextc + k), cnt + 1));
-						}
-					}
+					if (visit[pos.first + j][pos.second + k]) continue ;
+					visit[pos.first + j][pos.second + k] = 1;
+					dq.push_back(make_pair(make_pair(pos.first + j, pos.second + k), cnt + 1));
 				}
 			}
 		}
