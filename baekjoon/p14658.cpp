@@ -7,18 +7,7 @@
 using namespace std;
 
 int							n, m, l, k;
-vector<pair<int, int> >		v;		// y, x
-int							choice;
-
-
-int		in_the_box(int x, int y)
-{
-	if (abs(x - v[choice].second) > l)
-		return 0;
-	if (abs(y - v[choice].first) > l)
-		return 0;
-	return 1;
-}
+vector<pair<int, int> >		v;
 
 int		main(void)
 {
@@ -29,26 +18,34 @@ int		main(void)
 		scanf("%d %d", &x, &y);
 		if (i != k - 1)
 			scanf("\n");
-		v.push_back(make_pair(y, x));
+		v.push_back(make_pair(x, y));
 	}
 	sort(v.begin(), v.end());
 	int		maxi = 0;
-	for (choice = 0; choice < k; choice++)
+	for (int frontx = 0; frontx < k; frontx++)
 	{
-		for (int i = choice; i < k; i++)
+		vector<int>		yy;
+		int		backx;
+		for (backx = frontx; backx < k; backx++)
 		{
-			if (in_the_box(v[i].second, v[i].first) == 0)
-				continue ;
-			int	cnt = 0;
-			for (int j = i; j < k; j++)
+			if (v[backx].first - v[frontx].first > l)
+				break ;
+			yy.push_back(v[backx].second);
+			// printf("%d ", yy.back());
+		}
+		// printf("\nfrontx: %d, backx: %d\n", frontx, backx);
+		sort(yy.begin(), yy.end());
+		int		backy, fronty;
+		for (fronty = 0; fronty < yy.size(); fronty++)
+		{
+			for (backy = fronty; backy < yy.size(); backy++)
 			{
-				if (in_the_box(v[j].second, v[j].first) == 0)
-					continue ;
-				if (v[j].second - v[i].second > l)
-					continue ;
-				cnt++;
+				if (yy[backy] - yy[fronty] > l)
+					break ;
 			}
+			int		cnt = backy - fronty;
 			if (maxi < cnt) maxi = cnt;
+			// printf("fronty: %d, backy: %d, cnt: %d\n", fronty, backy, cnt);
 		}
 	}
 	printf("%d\n", k - maxi);
