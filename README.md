@@ -1,4 +1,1 @@
-# baekjoon
-Problem Solve
-
-1day-1solve
+# problem_solve
