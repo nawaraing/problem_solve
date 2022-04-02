@@ -2,43 +2,36 @@
 
 using namespace std;
 
-void	ft_recur(int n) {
-	if (n == 3) {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (i == 1 && j == 1) cout <<" ";
-				else cout << "*";
-			}
-			cout << "\n";
-		}
-	}
-	else {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (i == 1 && j == 1) {
-					 for (int k = 0; k < n / 3; k++) {
-						 for (int l = 0; l < n /3; l++) {
-							 cout << " ";
-						 }
-						 cout << "\n";
-					 }
-				}
-				else ft_recur(n / 3);
-			}
-			cout << "\n";
-		}
-	}
-	return ;
+bool	board[6561][6561];
+
+void	star(int n, int x, int y) {
+	int		sep = n/3;
+
+	if (n == 1) { board[x][y] = true ; return ;}
+
+	star(sep, x-sep, y-sep);
+	star(sep, x, y-sep);
+	star(sep, x+sep, y-sep);
+	star(sep, x-sep, y);
+	star(sep, x+sep, y);
+	star(sep, x-sep, y+sep);
+	star(sep, x, y+sep);
+	star(sep, x+sep, y+sep);
+
 }
 
 int		main(void)
 {
-	ios::sync_with_stdio(false);
-	cin.tie(0);
-
-	int				n;
+	int		n;
 
 	cin >> n;
-	ft_recur(n);
-	return (0);
+	star(n, n/2, n/2);
+
+	for (int iX=0 ; iX<n ; iX++) {
+		for (int iY=0 ; iY<n ; iY++) {
+			if (board[iX][iY]) cout << "*";
+			else cout << " ";
+		}
+		cout << "\n";
+	}
 }
